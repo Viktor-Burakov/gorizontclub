@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,5 +20,39 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $category = [
+            [
+                'url' => 'splavy',
+                'title' => 'Сплавы',
+            ],
+            [
+                'url' => 'pohody',
+                'title' => 'Походы',
+            ],
+            [
+                'url' => 'konnye-pohody',
+                'title' => 'Конные походы',
+            ],
+            [
+                'url' => 'kayaking',
+                'title' => 'Каякинг',
+            ],
+            [
+                'url' => 'gornolyzhnye-tury-iz-tyumeni',
+                'title' => 'Горнолыжные выезды',
+            ],
+            [
+                'url' => 'poleznoe',
+                'title' => 'Полезное',
+            ],
+            [
+                'url' => 'proshedshie',
+                'title' => 'Прошедшие',
+            ],
+        ];
+        foreach ($category as $value) {
+            DB::table('category')->insert($value);
+        }
+        
     }
 }

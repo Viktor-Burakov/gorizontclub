@@ -1,0 +1,421 @@
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+   padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+   margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+   min-height: 100vh;
+   scroll-behavior: smooth;
+   text-rendering: optimizeSpeed;
+   line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul,
+ol {
+   list-style: none;
+   margin-block-start: 0;
+   margin-block-end: 0;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+   padding-inline-start: 0;
+}
+
+a:active,
+a:hover,
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+   max-width: 100%;
+   display: block;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+   font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+   * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+   }
+}
+
+/* 
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+ */
+
+body {
+   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+   font-style: normal;
+   font-family: 'Open Sans', sans-serif;
+}
+
+svg {
+   display: inline-block;
+   height: 1em;
+   stroke-width: 0;
+   stroke: currentColor;
+   fill: currentColor;
+}
+
+.conteiner {
+   max-width: 1140px;
+   margin-right: auto;
+   margin-left: auto;
+   padding: 0 10px;
+}
+
+.float-right {
+   float: right;
+}
+
+.align-bottom {
+   display: flex;
+   align-items: flex-end;
+}
+
+header {
+   background-color: #ed5816;
+   background-image: url(../img/header_bg_mob_vert.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+   padding: 2rem 0;
+   color: #ffffff;
+}
+
+main a,
+footer .phone a {
+   color: #ff6501;
+   transition: all .2s linear;
+}
+
+main a:hover {
+   color: #8a1a00;
+}
+
+footer {
+   background-color: #313131;
+   padding: 2rem 0;
+   color: #ffffff;
+}
+
+.row {
+   display: flex;
+   width: 100%;
+   flex-wrap: wrap;
+}
+
+.col-2 {
+   width: 100%;
+}
+
+.col-4 {
+   width: 100%;
+}
+
+.col-nav {
+   display: flex;
+   align-content: center;
+   align-items: center;
+}
+
+.social-icons {
+   text-align: right;
+   width: 100%;
+}
+
+footer .social-icons {
+   padding-right: 4rem;
+}
+
+.social-icons li {
+   display: inline-block;
+}
+
+.social-icons__icon a {
+   display: block;
+   background-color: #444444;
+   background-color: #00000064;
+   border-radius: 10%;
+   width: 2.2rem;
+   height: 2.2rem;
+   line-height: 1rem;
+   position: relative;
+   transition: 0.3s;
+}
+
+footer .social-icons__icon a {
+   width: 3rem;
+   height: 3rem;
+}
+
+.social-icons__icon a:hover {
+   transform: scale(1.1);
+   opacity: 0.9;
+}
+
+.social-icons__icon a svg {
+   position: absolute;
+   top: 50%;
+   margin-top: -0.5em;
+   left: 50%;
+   margin-left: -0.6em;
+}
+
+.phone {
+   text-align: right;
+   letter-spacing: 0.03rem;
+   font-weight: 600;
+   text-shadow: 2px 2px 2px rgb(42 29 29 / 78%)
+}
+
+footer .phone {
+   text-align: left;
+   padding: 0.3rem 0 1rem 0.8rem;
+}
+
+footer .phone a:hover {
+   color: #ffffff;
+}
+
+footer .logo {
+   display: none;
+}
+
+.logo {
+   margin: 2rem 1rem 0 0;
+}
+
+.logo__title {
+   font-size: 1.3rem;
+   text-transform: uppercase;
+   font-weight: 600;
+   margin: 1rem 0;
+}
+
+nav {
+   width: 100%;
+}
+
+nav ul a {
+   font-weight: 600;
+   display: block;
+   padding: 0.3rem 0 0.3rem 0.8rem;
+   transition: all .2s linear;
+}
+
+header nav ul a:hover,
+header nav ul a.active {
+   background-color: #FFFFFF36;
+}
+
+header nav ul {
+   letter-spacing: 0.8px;
+   border-style: solid;
+   border-width: 0px 0px 0px 3px;
+   border-color: #FFFFFF;
+   text-transform: uppercase;
+}
+
+footer nav ul a:hover,
+footer nav ul a.active {
+   background-color: #222222;
+}
+
+main {
+   background-color: #fefbf6;
+   background-image: url(../img/backgroud.jpg);
+   background-size: contain;
+   padding: 1px 0;
+}
+
+section {
+   border-radius: 20px 20px 20px 20px;
+   background-color: #fff;
+   box-shadow: 0px 0px 20px 1px rgb(0 0 0 / 50%);
+   margin: 1.5rem 0 1rem;
+}
+
+.text {
+   padding: calc((10 * (100vw - 320px) /(1120 - 320)) + 10px);
+}
+
+/* Указываем понятную периодичность в потоке данных у .text*/
+.text>*+* {
+   margin-top: 1rem;
+}
+
+h1, .h1 {
+   font-size: 1.6rem;
+   font-weight: 600;
+}
+
+h2, .h2 {
+   font-size: 1.4rem;
+   font-weight: 600;
+}
+
+h3, .h3 {
+   font-size: 1.1rem;
+   font-weight: 600;
+}
+
+.img>img {
+   height: 80vw;
+   max-height: 650px;
+   object-fit: cover;
+}
+
+.img {
+   position: relative;
+}
+
+section>.img::after {
+   content: "";
+   display: block;
+   width: 100%;
+   height: 10%;
+   position: absolute;
+   top: 0;
+   left: 0;
+   background: transparent;
+   background-image: linear-gradient(to top, #ffffff00, #ffffff);
+}
+
+section>.img::before {
+   content: "";
+   display: block;
+   width: 100%;
+   height: 10%;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   background: transparent;
+   background-image: linear-gradient(to bottom, #ffffff00, #ffffff);
+}
+
+section>.img:first-child::after,
+section>.img:last-child::before {
+   content: unset;
+}
+
+section>.img:first-child>img {
+   border-radius: 20px 20px 0 0;
+}
+
+section>.img:last-child>img {
+   border-radius: 0 0 20px 20px;
+}
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {
+   header {
+      background-image: url(../img/header_bg_mob.jpg);
+      padding: 4rem 0;
+   }
+
+   .row {
+      flex-wrap: nowrap;
+   }
+
+   .col-2 {
+      width: 50%;
+   }
+
+   .col-4 {
+      flex: 1 1 25%;
+   }
+
+   .col-nav {
+      justify-content: flex-end;
+   }
+
+   .social-icons {
+      text-align: left;
+      width: 100%;
+   }
+
+   .phone {
+      text-align: left;
+   }
+
+   header .logo__title {
+      font-size: 1.8rem;
+   }
+
+   nav {
+      width: unset;
+   }
+
+   header nav ul {
+      font-size: 1.4rem;
+      width: 24rem;
+   }
+
+   footer nav ul {
+      width: 16rem;
+   }
+}
+
+
+@media (min-width: 992px) {
+   header {
+      background-image: url(../img/header_bg.jpg);
+   }
+
+   footer .logo {
+      display: block;
+   }
+
+   .row {
+      flex-wrap: nowrap;
+   }
+}
+
+@media (min-width: 1200px) {
+   .text {
+      padding: 20px;
+   }
+}
