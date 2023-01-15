@@ -23,9 +23,7 @@ return new class extends Migration
             $table->index('category_id', 'category_post_category_idx');
 
             $table->foreign('post_id', 'category_post_post_fk')->references('id')->on('posts');
-            $table->foreign('category_id', 'category_post_category_fk')->references('id')->on('category');
-
-            $table->timestamps();
+            $table->foreign('category_id', 'category_post_category_fk')->references('id')->on('categories');
         });
     }
 

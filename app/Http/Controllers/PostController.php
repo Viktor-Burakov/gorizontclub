@@ -2,33 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\PostDetail;
-use Illuminate\Http\Request;
 use App\Models\Posts;
+use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
     public function index()
     {
-        $post = Posts::find(1);
-        dd($post->category1);
-
         $posts = Posts::where('active', 0)->get();
+
         return view('post.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('post.create');
+        $categories = Categories::all();
+
+        return view('post.create', compact('categories'));
     }
 
     public function store()
     {
 
         $data = request()->validate(Posts::$validData);
-
-        $data['category'] = Posts::categoryImplode();
-
+        foreach ($data['category'] as $key => $value) {
+            $categories[] = $key;
+        }
+        unset($data['category']);
+ 
         $post = Posts::create($data);
 
         $dataPostDetail = request()->validate(PostDetail::$validData);
@@ -36,6 +40,8 @@ class PostController extends Controller
         $dataPostDetail['post_id'] = $post->id;
 
         PostDetail::create($dataPostDetail);
+
+        $post->categories()->attach($categories);
 
         return redirect()->route('post.edit', $data['url']);
     }
@@ -53,33 +59,49 @@ class PostController extends Controller
         $post = Posts::join('post_detail', 'posts.id', '=', 'post_detail.post_id')
             ->where('url', $uri)->first();
         if (!isset($post)) dd('404');
+        $categories = Categories::all();
 
-        $post['category'] = Posts::categoryExplode($post->category);
-        return view('post.edit', compact('post'));
+        foreach ($categories as $key => $category) {
+            $categories[$key]['checked'] = '';
+            foreach ($post->categories as $postCategory) {
+
+                if ($category->id == $postCategory->id) {
+                    $categories[$key]['checked'] = ' checked';
+                }
+            }
+        }
+
+        return view('post.edit', compact('post', 'categories'));
     }
 
     public function update($uri)
     {
-
         $data = request()->validate(Posts::$validData);
+        foreach ($data['category'] as $key => $value) {
+            $categories[] = $key;
+        }
+        unset($data['category']);
 
-        $data['category'] = Posts::categoryImplode();
-
-        Posts::where('url', $uri)->update($data);
+        $post = Posts::where('url', $uri)->first();
+        $post->update($data);
 
         $dataPostDetail = request()->validate(PostDetail::$validData);
-        $dataId = request()->validate(Posts::$validId);
 
-        PostDetail::where('post_id', $dataId)->update($dataPostDetail);
+        PostDetail::where('post_id', $post->id)->update($dataPostDetail);
+
+        $post->categories()->sync($categories);
+ 
 
         return redirect()->route('post.show', $data['url']);
     }
 
     public function destroy($uri)
     {
-        Posts::where('url', $uri)->delete();
-        $dataId = request()->validate(Posts::$validId);
-        PostDetail::where('post_id', $dataId)->delete();
+        $post = Posts::where('url', $uri)->first();
+        $post->delete();
+
+        PostDetail::where('post_id', $post->id)->delete();
+
         return redirect()->route('main.index');
     }
 }

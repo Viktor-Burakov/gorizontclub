@@ -18,7 +18,6 @@
             {{$post->preview_text}}
          </div>
          <div class="col alert alert-primary">
-            {{$post->category}}
          </div>
       </div>
 

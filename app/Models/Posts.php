@@ -13,9 +13,9 @@ class Posts extends Model
     protected $table = 'posts';
     protected $guarded = [];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_posts', 'post_id', 'category_id');
+        return $this->belongsToMany(Categories::class, 'category_posts', 'post_id', 'category_id');
     }
 
     public static $validData = array(
@@ -27,8 +27,6 @@ class Posts extends Model
         'H1' => 'string',
         'preview' => 'nullable|string',
         'preview_alt' => 'nullable|string',
-    );
-    public static $validId = array(
-        'post_id' => 'integer',
+        'category' => '',
     );
 }

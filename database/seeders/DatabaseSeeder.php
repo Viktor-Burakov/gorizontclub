@@ -51,8 +51,67 @@ class DatabaseSeeder extends Seeder
             ],
         ];
         foreach ($category as $value) {
-            DB::table('category')->insert($value);
+            DB::table('categories')->insert($value);
         }
-        
+
+        $posts = [
+            [
+                'title' => 'post1',
+                'url' => 'post1',
+                'H1' => 'post1',
+            ],
+            [
+                'title' => 'pos2',
+                'url' => 'post2',
+                'H1' => 'post2',
+            ],
+
+        ];
+        foreach ($posts as $value) {
+            DB::table('posts')->insert($value);
+        }
+
+        $postsDetail = [
+            [
+                'post_id' => 1,
+            ],
+            [
+                'post_id' => 2,
+            ],
+
+        ];
+        foreach ($postsDetail as $value) {
+            DB::table('post_detail')->insert($value);
+        }
+
+        $categoryPost = [
+            [
+                'post_id' => '1',
+                'category_id' => '1',
+            ],
+            [
+                'post_id' => '1',
+                'category_id' => '3',
+            ],
+            [
+                'post_id' => '1',
+                'category_id' => '2',
+            ],
+            [
+                'post_id' => '2',
+                'category_id' => '2',
+            ],
+            [
+                'post_id' => '2',
+                'category_id' => '4',
+            ],
+
+        ];
+        foreach ($categoryPost as $value) {
+            DB::table('category_posts')->insert($value);
+        }
+
+
+
     }
 }
