@@ -61,9 +61,19 @@ class DatabaseSeeder extends Seeder
                 'H1' => 'post1',
             ],
             [
-                'title' => 'pos2',
+                'title' => 'post2',
                 'url' => 'post2',
                 'H1' => 'post2',
+            ],
+            [
+                'title' => 'post3',
+                'url' => 'post3',
+                'H1' => 'post3',
+            ],
+            [
+                'title' => 'post4',
+                'url' => 'post4',
+                'H1' => 'post4',
             ],
 
         ];
@@ -78,8 +88,15 @@ class DatabaseSeeder extends Seeder
             [
                 'post_id' => 2,
             ],
+            [
+                'post_id' => 3,
+            ],
+            [
+                'post_id' => 4,
+            ],
 
         ];
+
         foreach ($postsDetail as $value) {
             DB::table('post_detail')->insert($value);
         }
@@ -104,6 +121,14 @@ class DatabaseSeeder extends Seeder
             [
                 'post_id' => '2',
                 'category_id' => '4',
+            ],
+            [
+                'post_id' => '3',
+                'category_id' => '2',
+            ],
+            [
+                'post_id' => '4',
+                'category_id' => '2',
             ],
 
         ];

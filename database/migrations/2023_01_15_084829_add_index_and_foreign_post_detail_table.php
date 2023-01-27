@@ -27,9 +27,10 @@ return new class extends Migration
     public function down()
     {
         Schema::table('post_detail', function (Blueprint $table) {
-            $table->dropIndex('post_id');
+/*             $table->dropIndex('post_id');
             $table->dropForeign('post_id');
-            $table->dropColumn('post_id');
+            $table->dropColumn('post_id'); 
+            */
         });
     }
 };

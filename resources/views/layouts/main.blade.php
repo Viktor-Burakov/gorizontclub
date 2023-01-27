@@ -67,7 +67,7 @@
 </head>
 
 <body>
-   <!--   <header>
+   <header>
       <div class="conteiner">
          <div class="row">
             <div class="col-2">
@@ -132,7 +132,7 @@
             </div>
          </div>
       </div>
-   </header> -->
+   </header>
    <main>
       <div class="conteiner">
          <section>
