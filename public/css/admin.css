@@ -1,0 +1,21 @@
+.btn-plus {
+   position: relative;
+   padding-left: 3em;
+}
+
+.btn-plus:after,
+.btn-plus:before {
+   content: '';
+   position: absolute;
+   transform: translate(-50%, -50%);
+   height: 3px;
+   width: 1.5em;
+   background: #ffffff;
+   top: 50%;
+   left: 1.5em;
+}
+
+.btn-plus:before {
+   height: 1.5em;
+   width: 3px;
+}

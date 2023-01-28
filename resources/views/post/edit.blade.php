@@ -4,7 +4,7 @@
    <div class="text">
       <h1>Редактировать пост</h1>
       <div><span>Title: <i>{{$post->title}}</i></span></div>
-      <form action="{{ route('post.update', $post->url) }}" method="post" id="form">
+      <form action="{{ route('post.update', $post->url) }}" method="post" id="form" class="g-3 needs-validation" enctype="multipart/form-data" novalidate>
          @csrf
          @method('patch')
                <div class="mb-5">
@@ -13,8 +13,11 @@
          </div>
          <div class="mb-5">
             <label for="title" class="h2 form-label text-bg-warning p-2 rounded-2">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}" required>
             <div class="form-text">До стольки то символов</div>
+            <div class="invalid-feedback">
+               Обязательно для заполнения.
+            </div>
                         @error('title')
                <p class="alert alert-danger">{{ $message }}</p>
             @enderror
@@ -22,7 +25,10 @@
 
          <div class="mb-5">
             <label for="url" class="h2 form-label text-bg-warning p-2 rounded-2">Url</label>
-            <input type="text" class="form-control" id="url" name="url" value="{{ old('url', $post->url) }}">
+            <input type="text" class="form-control" id="url" name="url" value="{{ old('url', $post->url) }}" required>
+                        <div class="invalid-feedback">
+               Обязательно для заполнения.
+            </div>
                      @error('url')
                <p class="alert alert-danger">{{ $message }}</p>
             @enderror
@@ -30,8 +36,11 @@
 
          <div class="mb-5">
             <label for="H1" class="h2 form-label text-bg-warning p-2 rounded-2">H1 - заголовок</label>
-            <input type="text" class="form-control" id="H1" name="H1" value="{{ old('H1', $post->H1) }}">
+            <input type="text" class="form-control" id="H1" name="H1" value="{{ old('H1', $post->H1) }}" required>
             <div class="form-text">До стольки то символов</div>
+                        <div class="invalid-feedback">
+               Обязательно для заполнения.
+            </div>
                      @error('H1')
                <p class="alert alert-danger">{{ $message }}</p>
             @enderror
@@ -85,11 +94,66 @@
             <div class="form-text">До стольки то символов</div>
          </div>
 
-         <div class="mb-5">
-            <label for="content" class="h2 form-label text-bg-warning p-2 rounded-2">Контент</label>
-            <textarea class="form-control" id="content" name="content">{{ old('content', $post->content) }}</textarea>
-            <div class="form-text">До стольки то символов</div>
+         <div class="content-rows">
+            <div class="text-bg-warning p-2 rounded-2 mb-3">Контент</div>
+            <div class="mb-5 content-item" id="content-item_0">
+               <div class="mb-3">
+                  <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
+                  <textarea class="form-control" id="content_0" name="content[]">{{ old('content', $post->content) }}</textarea>
+               </div>
+               <div class="row">
+                  <div class="col">
+                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
+                     <button type="button" class="btn btn-success btn-plus">Img</button>
+                     <button type="button" class="btn btn-warning btn-plus">Video</button>
+                  </div>
+                  <div class="col d-flex flex-end justify-content-end">
+                        <button type="button" class="btn btn-danger btn-del">Удалить</button>
+                  </div>
+               </div>
+            </div>
+
+                        <div class="mb-5 content-item" id="content-item_0">
+               <div class="mb-3">
+                   <label for="files" class="form-label">IMG</label>
+            <input class="form-control" type="file" id="files" name="files[][]" multiple>
+               </div>
+               <div class="row">
+                  <div class="col">
+                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
+                     <button type="button" class="btn btn-success btn-plus">Img</button>
+                     <button type="button" class="btn btn-warning btn-plus">Video</button>
+                  </div>
+                  <div class="col d-flex flex-end justify-content-end">
+                        <button type="button" class="btn btn-danger btn-del">Удалить</button>
+                  </div>
+               </div>
+            </div>
+
          </div>
+@php
+   echo "<br><BR><pre>";
+
+
+$arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
+
+print_r($arr);
+echo "<hr>";
+$arr2 = json_encode($arr);
+
+echo $arr2;
+echo "<hr>";
+print_r(json_decode($arr2, true));
+
+
+
+
+echo "<br><BR></pre>";
+@endphp
+
+
+
+
          <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
          
       </form>
