@@ -1,3 +1,25 @@
+class Content {
+    static fieldId = 1;
+    static wrapper = ".content-rows";
+    static item = "content-item";
+
+    static rows = [];
+
+    static getRows(rowsArray) {
+        rowsArray.forEach(function (row) {
+            Content.rows[row] = $("#" + row)
+                .children(".mb-3")
+                .clone(true, true);
+        });
+    }
+
+    static addRow(rowName) {
+        let row = $(Content.rows[rowName]).clone(true, true);
+        $(Content.wrapper).append(row);
+        console.log(Content.rows);
+    }
+}
+
 $(document).ready(function () {
     $("#enter-data").click(function () {
         genUrl();
@@ -19,7 +41,24 @@ $(document).ready(function () {
     let fieldId = 1;
     let wrapper = ".content-rows";
     let item = "content-item";
+
+    let rowButton = $("#content-btn").children(".mb-3").clone(true, true);
+    let rowText = $("#content-text").children(".mb-3").clone(true, true);
+    let rowImg = $("#content-img").children(".mb-3").clone(true, true);
+    let rowVideo = $("#content-video").children(".mb-3").clone(true, true);
+
     let fieldClone = $("#" + item + "_0").clone(true, true);
+
+    Content.getRows([
+        "content-btn",
+        "content-text",
+        "content-img",
+        "content-video",
+    ]);
+    Content.addRow("content-btn");
+    Content.addRow("content-text");
+    Content.addRow("content-img");
+    Content.addRow("content-video");
 
     $(wrapper).on("click", ".btn-plus", function () {
         let field = $(fieldClone).clone(true, true);
@@ -36,7 +75,7 @@ $(document).ready(function () {
 
         $(this)
             .closest("." + item)
-            .after(field);
+            .after(rowButton);
 
         fieldId++;
     });

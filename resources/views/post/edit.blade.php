@@ -94,8 +94,42 @@
             <div class="form-text">До стольки то символов</div>
          </div>
 
+
+
+<div class="invisible" id="content-btn">
+               <div class="row mb-3">
+                  <div class="col">
+                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
+                     <button type="button" class="btn btn-success btn-plus">Img</button>
+                     <button type="button" class="btn btn-warning btn-plus">Video</button>
+                  </div>
+                  <div class="col d-flex flex-end justify-content-end">
+                        <button type="button" class="btn btn-danger btn-del">Удалить</button>
+                  </div>
+               </div>
+</div>
+<div class="d-none" id="content-text">
+              <div class="mb-3">
+                  <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
+                  <textarea class="form-control" id="content_0" name="content[]"></textarea>
+               </div>
+</div>
+<div class="d-none" id="content-img">
+ <div class="mb-3">
+                   <label for="files" class="form-label">IMG</label>
+            <input class="form-control" type="file" id="files" name="files[][]" multiple>
+               </div>
+</div>
+<div class="d-none" id="content-video">
+ <div class="mb-3">
+                   <label for="files" class="form-label">Video</label>
+            <input class="form-control" type="file" id="files" name="files[][]" multiple>
+               </div>
+</div>
+
+
          <div class="content-rows">
-            <div class="text-bg-warning p-2 rounded-2 mb-3">Контент</div>
+            <div class="h2 text-bg-warning p-2 rounded-2 mb-3">Контент</div>
             <div class="mb-5 content-item" id="content-item_0">
                <div class="mb-3">
                   <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
@@ -112,23 +146,7 @@
                   </div>
                </div>
             </div>
-
-                        <div class="mb-5 content-item" id="content-item_0">
-               <div class="mb-3">
-                   <label for="files" class="form-label">IMG</label>
-            <input class="form-control" type="file" id="files" name="files[][]" multiple>
-               </div>
-               <div class="row">
-                  <div class="col">
-                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
-                     <button type="button" class="btn btn-success btn-plus">Img</button>
-                     <button type="button" class="btn btn-warning btn-plus">Video</button>
-                  </div>
-                  <div class="col d-flex flex-end justify-content-end">
-                        <button type="button" class="btn btn-danger btn-del">Удалить</button>
-                  </div>
-               </div>
-            </div>
+  
 
          </div>
 @php
