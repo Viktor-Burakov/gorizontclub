@@ -96,17 +96,19 @@
 
 
 
-<div class="invisible" id="content-btn">
-               <div class="row mb-3">
+<div class="invisible" id="content-templay">
+   <div class="mb-5 content-item" id="content-item" style="display:none;">
+               <div class="row">
                   <div class="col">
-                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
-                     <button type="button" class="btn btn-success btn-plus">Img</button>
-                     <button type="button" class="btn btn-warning btn-plus">Video</button>
+                     <button type="button" class="btn btn-dark btn-plus" value="content-text">Текст</button>
+                     <button type="button" class="btn btn-success btn-plus" value="content-img">Img</button>
+                     <button type="button" class="btn btn-warning btn-plus" value="content-video">Video</button>
                   </div>
                   <div class="col d-flex flex-end justify-content-end">
                         <button type="button" class="btn btn-danger btn-del">Удалить</button>
                   </div>
                </div>
+            </div>
 </div>
 <div class="d-none" id="content-text">
               <div class="mb-3">
@@ -116,19 +118,19 @@
 </div>
 <div class="d-none" id="content-img">
  <div class="mb-3">
-                   <label for="files" class="form-label">IMG</label>
+                   <label for="files" class="form-label text-bg-success p-1 rounded-2">IMG</label>
             <input class="form-control" type="file" id="files" name="files[][]" multiple>
                </div>
 </div>
 <div class="d-none" id="content-video">
  <div class="mb-3">
-                   <label for="files" class="form-label">Video</label>
+                   <label for="files" class="form-label text-bg-warning p-1 rounded-2">Video</label>
             <input class="form-control" type="file" id="files" name="files[][]" multiple>
                </div>
 </div>
 
 
-         <div class="content-rows">
+         <div class="content-items">
             <div class="h2 text-bg-warning p-2 rounded-2 mb-3">Контент</div>
             <div class="mb-5 content-item" id="content-item_0">
                <div class="mb-3">

@@ -1,9 +1,16 @@
 class Content {
     static fieldId = 1;
-    static wrapper = ".content-rows";
+    static wrapper = ".content-items";
     static item = "content-item";
 
+    static templay;
     static rows = [];
+
+    static getTemplay() {
+        Content.templay = $("#content-templay")
+            .children(".content-item")
+            .clone(true, true);
+    }
 
     static getRows(rowsArray) {
         rowsArray.forEach(function (row) {
@@ -13,10 +20,41 @@ class Content {
         });
     }
 
-    static addRow(rowName) {
+    static addRow(rowName, currentRow = null) {
         let row = $(Content.rows[rowName]).clone(true, true);
-        $(Content.wrapper).append(row);
-        console.log(Content.rows);
+        let temp = $(Content.templay).clone(true, true);
+
+        $(temp).prepend(row);
+        Content.setId(temp);
+
+        if (currentRow) {
+            currentRow.after(temp);
+            $(currentRow).next().show("fast");
+        } else {
+            $(temp).show();
+            $(Content.wrapper).append(temp);
+        }
+    }
+
+    static deleteRow(currentRow) {
+        currentRow.closest("." + Content.item).fadeOut(300, function () {
+            $(this).remove();
+        });
+    }
+
+    static setId(currentRow) {
+        console.log(Content.fieldId);
+        $(currentRow)
+            .find('[id^="content_"]')
+            .attr("id", "content_" + Content.fieldId);
+
+        $(currentRow)
+            .find('label[for^="content_"]')
+            .attr("for", "content_" + Content.fieldId);
+
+        $(currentRow).attr("id", Content.item + "_" + Content.fieldId);
+
+        Content.fieldId++;
     }
 }
 
@@ -39,28 +77,24 @@ $(document).ready(function () {
 
     // add fields
     let fieldId = 1;
-    let wrapper = ".content-rows";
+    let wrapper = ".content-items";
     let item = "content-item";
 
     let rowButton = $("#content-btn").children(".mb-3").clone(true, true);
-    let rowText = $("#content-text").children(".mb-3").clone(true, true);
-    let rowImg = $("#content-img").children(".mb-3").clone(true, true);
-    let rowVideo = $("#content-video").children(".mb-3").clone(true, true);
 
     let fieldClone = $("#" + item + "_0").clone(true, true);
 
-    Content.getRows([
-        "content-btn",
-        "content-text",
-        "content-img",
-        "content-video",
-    ]);
-    Content.addRow("content-btn");
+    Content.getTemplay();
+    Content.getRows(["content-text", "content-img", "content-video"]);
     Content.addRow("content-text");
     Content.addRow("content-img");
     Content.addRow("content-video");
 
     $(wrapper).on("click", ".btn-plus", function () {
+        let row = $(this).attr("value");
+
+        Content.addRow(row, $(this).closest("." + item));
+
         let field = $(fieldClone).clone(true, true);
 
         $(field)
@@ -81,9 +115,7 @@ $(document).ready(function () {
     });
 
     $(wrapper).on("click", ".btn-del", function () {
-        $(this)
-            .closest("." + item)
-            .remove();
+        Content.deleteRow($(this));
     });
 
     // bootstrap validation
