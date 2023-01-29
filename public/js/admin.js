@@ -20,11 +20,19 @@ class Content {
         });
     }
 
-    static addRow(rowName, currentRow = null) {
-        let row = $(Content.rows[rowName]).clone(true, true);
+    static addRow(rowName = null, currentRow = null, content = null) {
         let temp = $(Content.templay).clone(true, true);
 
-        $(temp).prepend(row);
+        if (rowName) {
+            let row = $(Content.rows[rowName]).clone(true, true);
+            if (content) {
+                Content.insertContent(row, content);
+            }
+            $(temp).prepend(row);
+        } else {
+            $(temp).find(".btn-del").remove();
+        }
+
         Content.setId(temp);
 
         if (currentRow) {
@@ -34,6 +42,8 @@ class Content {
             $(temp).show();
             $(Content.wrapper).append(temp);
         }
+
+        Content.setNames();
     }
 
     static deleteRow(currentRow) {
@@ -43,7 +53,6 @@ class Content {
     }
 
     static setId(currentRow) {
-        console.log(Content.fieldId);
         $(currentRow)
             .find('[id^="content_"]')
             .attr("id", "content_" + Content.fieldId);
@@ -55,6 +64,20 @@ class Content {
         $(currentRow).attr("id", Content.item + "_" + Content.fieldId);
 
         Content.fieldId++;
+    }
+
+    static setNames() {
+        $(Content.wrapper)
+            .find(".form-control")
+            .each(function (index, element) {
+                $(element).attr("name", "content[" + index + "][]");
+            });
+    }
+
+    static insertContent(input, content) {
+        $(input).children("textarea").html(content);
+
+        /*       $(input).value(content); */
     }
 }
 
@@ -75,46 +98,21 @@ $(document).ready(function () {
         }
     });
 
-    // add fields
-    let fieldId = 1;
-    let wrapper = ".content-items";
-    let item = "content-item";
-
-    let rowButton = $("#content-btn").children(".mb-3").clone(true, true);
-
-    let fieldClone = $("#" + item + "_0").clone(true, true);
-
     Content.getTemplay();
     Content.getRows(["content-text", "content-img", "content-video"]);
-    Content.addRow("content-text");
-    Content.addRow("content-img");
-    Content.addRow("content-video");
+    Content.addRow();
+    Content.addRow("content-text", null, "content 1231231");
+    Content.addRow("content-text", null, "vgfgfgf");
+    Content.addRow("content-img", null, "vgfgfg9999999999999999f");
 
-    $(wrapper).on("click", ".btn-plus", function () {
+    $(Content.wrapper).on("click", ".btn-plus", function () {
         let row = $(this).attr("value");
+        let item = $(this).closest("." + Content.item);
 
-        Content.addRow(row, $(this).closest("." + item));
-
-        let field = $(fieldClone).clone(true, true);
-
-        $(field)
-            .find('[id^="content_"]')
-            .attr("id", "content_" + fieldId);
-
-        $(field)
-            .find('label[for^="content_"]')
-            .attr("for", "content_" + fieldId);
-
-        $(field).attr("id", item + "_" + fieldId);
-
-        $(this)
-            .closest("." + item)
-            .after(rowButton);
-
-        fieldId++;
+        Content.addRow(row, item);
     });
 
-    $(wrapper).on("click", ".btn-del", function () {
+    $(Content.wrapper).on("click", ".btn-del", function () {
         Content.deleteRow($(this));
     });
 

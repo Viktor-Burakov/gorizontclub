@@ -118,38 +118,20 @@
 </div>
 <div class="d-none" id="content-img">
  <div class="mb-3">
-                   <label for="files" class="form-label text-bg-success p-1 rounded-2">IMG</label>
-            <input class="form-control" type="file" id="files" name="files[][]" multiple>
+                   <label for="content_0_img" class="form-label text-bg-success p-1 rounded-2">IMG</label>
+            <input class="form-control" type="file" id="content_0_img" name="files[][]" multiple>
                </div>
 </div>
 <div class="d-none" id="content-video">
  <div class="mb-3">
-                   <label for="files" class="form-label text-bg-warning p-1 rounded-2">Video</label>
-            <input class="form-control" type="file" id="files" name="files[][]" multiple>
+                   <label for="content_0_video" class="form-label text-bg-warning p-1 rounded-2">Video</label>
+            <input class="form-control" type="file" id="content_0_video" name="files[][]" multiple>
                </div>
 </div>
 
 
          <div class="content-items">
             <div class="h2 text-bg-warning p-2 rounded-2 mb-3">Контент</div>
-            <div class="mb-5 content-item" id="content-item_0">
-               <div class="mb-3">
-                  <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
-                  <textarea class="form-control" id="content_0" name="content[]">{{ old('content', $post->content) }}</textarea>
-               </div>
-               <div class="row">
-                  <div class="col">
-                     <button type="button" class="btn btn-dark btn-plus">Текст</button>
-                     <button type="button" class="btn btn-success btn-plus">Img</button>
-                     <button type="button" class="btn btn-warning btn-plus">Video</button>
-                  </div>
-                  <div class="col d-flex flex-end justify-content-end">
-                        <button type="button" class="btn btn-danger btn-del">Удалить</button>
-                  </div>
-               </div>
-            </div>
-  
-
          </div>
 @php
    echo "<br><BR><pre>";
