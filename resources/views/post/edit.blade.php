@@ -4,6 +4,16 @@
    <div class="text">
       <h1>Редактировать пост</h1>
       <div><span>Title: <i>{{$post->title}}</i></span></div>
+      @if ($errors->any())
+      
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
       <form action="{{ route('post.update', $post->url) }}" method="post" id="form" class="g-3 needs-validation" enctype="multipart/form-data" novalidate>
          @csrf
          @method('patch')
@@ -113,24 +123,29 @@
 <div class="d-none" id="content-text">
               <div class="mb-3">
                   <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
-                  <textarea class="form-control" id="content_0" name="content[]"></textarea>
+                  <textarea data-type="text" class="form-control" id="content_0_text" name=""></textarea>
                </div>
 </div>
 <div class="d-none" id="content-img">
  <div class="mb-3">
                    <label for="content_0_img" class="form-label text-bg-success p-1 rounded-2">IMG</label>
-            <input class="form-control" type="file" id="content_0_img" name="files[][]" multiple>
+            <input data-type="img" class="form-control" type="file" id="content_0_img" name="" accept="image/jpeg,image/jpg,image/png,image/gif" multiple>
                </div>
 </div>
 <div class="d-none" id="content-video">
  <div class="mb-3">
                    <label for="content_0_video" class="form-label text-bg-warning p-1 rounded-2">Video</label>
-            <input class="form-control" type="file" id="content_0_video" name="files[][]" multiple>
+            <input data-type="video" class="form-control" type="text" id="content_0_video" name="">
                </div>
 </div>
 
 
          <div class="content-items">
+@error('content.*.*.*')
+<p class="alert alert-danger">{{ $message }}</p>
+@enderror
+
+       
             <div class="h2 text-bg-warning p-2 rounded-2 mb-3">Контент</div>
          </div>
 @php

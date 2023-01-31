@@ -28,5 +28,11 @@ class Posts extends Model
         'preview' => 'nullable|string',
         'preview_alt' => 'nullable|string',
         'category' => '',
+        'content' => 'nullable|array',
+        'content.*.text.0' => 'nullable|string',
+        'content.*.img.*' =>
+        'image|mimes:jpg,png,jpeg,gif|max:10000',
+        'content.*.video.*' => 'nullable|string',
+   
     );
 }

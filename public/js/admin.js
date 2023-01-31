@@ -10,6 +10,7 @@ class Content {
         Content.templay = $("#content-templay")
             .children(".content-item")
             .clone(true, true);
+        $("#content-templay").remove();
     }
 
     static getRows(rowsArray) {
@@ -17,6 +18,7 @@ class Content {
             Content.rows[row] = $("#" + row)
                 .children(".mb-3")
                 .clone(true, true);
+            $("#" + row).remove();
         });
     }
 
@@ -70,14 +72,21 @@ class Content {
         $(Content.wrapper)
             .find(".form-control")
             .each(function (index, element) {
-                $(element).attr("name", "content[" + index + "][]");
+                console.log($(element).attr("data-type"));
+                $(element).attr(
+                    "name",
+                    "content[" +
+                        index +
+                        "][" +
+                        $(element).attr("data-type") +
+                        "][]"
+                );
             });
     }
 
     static insertContent(input, content) {
         $(input).children("textarea").html(content);
-
-        /*       $(input).value(content); */
+        $(input).children('input[type="text"]').val(content);
     }
 }
 
@@ -101,9 +110,9 @@ $(document).ready(function () {
     Content.getTemplay();
     Content.getRows(["content-text", "content-img", "content-video"]);
     Content.addRow();
-    Content.addRow("content-text", null, "content 1231231");
-    Content.addRow("content-text", null, "vgfgfgf");
-    Content.addRow("content-img", null, "vgfgfg9999999999999999f");
+    Content.addRow("content-text", null, "content text");
+    Content.addRow("content-video", null, "video");
+    Content.addRow("content-img", null, "img");
 
     $(Content.wrapper).on("click", ".btn-plus", function () {
         let row = $(this).attr("value");

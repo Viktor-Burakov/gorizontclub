@@ -77,11 +77,14 @@ class PostController extends Controller
     public function update($uri)
     {
         $data = request()->validate(Posts::$validData);
+   
         foreach ($data['category'] as $key => $value) {
             $categories[] = $key;
         }
         unset($data['category']);
 
+        dump($data);
+        dd();
         $post = Posts::where('url', $uri)->first();
         $post->update($data);
 
