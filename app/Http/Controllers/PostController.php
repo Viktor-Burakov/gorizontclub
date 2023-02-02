@@ -51,8 +51,8 @@ class PostController extends Controller
         $post = Posts::join('post_detail', 'posts.id', '=', 'post_detail.post_id')
             ->where('url', $uri)->first();
         if (!isset($post)) dd('404');
-        $post->content1 = json_decode($post->content);
-       // dd($post->content1);
+        $post->content = json_decode($post->content);
+
         return view('post.show', compact('post'));
     }
 
@@ -79,12 +79,14 @@ class PostController extends Controller
     public function update($uri)
     {
         $data = request()->validate(Posts::$validData);
-   
-        foreach ($data['category'] as $key => $value) {
+        $categories = array();
+        if (isset($data['category'])) {
+            foreach ($data['category'] as $key => $value) {
             $categories[] = $key;
-        }
+            }
+        
         unset($data['category']);
-
+        }
         
         $post = Posts::where('url', $uri)->first();
         $post->update($data);
@@ -95,7 +97,7 @@ class PostController extends Controller
         if (isset($dataPostDetail['content'])) {
             ksort($dataPostDetail['content']);
             $dataPostDetail['content'] = json_encode($dataPostDetail['content'], JSON_UNESCAPED_UNICODE);
-            
+
 
         }
 

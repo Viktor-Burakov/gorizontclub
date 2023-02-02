@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,14 +14,20 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/',  [PostController::class, 'index'])->name('main.index');
-Route::get('/posts/create',  [PostController::class, 'create'])->name('post.create');
-Route::post('/posts/create',  [PostController::class, 'store'])->name('post.store');
+Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+    Route::get(
+        '/',
+        IndexController::class,
+    )->name('main.index');
+    Route::get('/posts/create',  CreateController::class)->name('post.create');
+    Route::post('/posts/create',  StoreController::class)->name('post.store');
 
-Route::get('/{post}',  [PostController::class, 'show'])->name('post.show');
-Route::get('/{post}/edit',  [PostController::class, 'edit'])->name('post.edit');
-Route::patch('/{post}',  [PostController::class, 'update'])->name('post.update');
-Route::delete('/{post}',  [PostController::class, 'destroy'])->name('post.delete');
+    Route::get('/{post}',  ShowController::class)->name('post.show');
+    Route::get('/{post}/edit', EditController::class)->name('post.edit');
+    Route::patch('/{post}',  UpdateController::class)->name('post.update');
+    Route::delete('/{post}',  DestroyController::class)->name('post.delete');
+});
+
 
 
 
