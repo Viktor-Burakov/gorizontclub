@@ -2,7 +2,7 @@ class Content {
     static fieldId = 1;
     static wrapper = ".content-items";
     static item = "content-item";
-
+    static contentInput = "content-input";
     static templay;
     static rows = [];
 
@@ -22,20 +22,23 @@ class Content {
         });
     }
 
-    static addRow(rowName = null, currentRow = null, content = null) {
+    static addRow(rowName = null, content = null, currentRow = null) {
         let temp = $(Content.templay).clone(true, true);
-
         if (rowName) {
             let row = $(Content.rows[rowName]).clone(true, true);
             if (content) {
                 Content.insertContent(row, content);
+            } else if (rowName == "sub_title") {
+                console.log(rowName);
+                Content.toggleSubtitle(row, "h2");
             }
+
             $(temp).prepend(row);
         } else {
             $(temp).find(".btn-del").remove();
         }
 
-        Content.setId(temp);
+        Content.setAttr(temp);
 
         if (currentRow) {
             currentRow.after(temp);
@@ -54,7 +57,9 @@ class Content {
         });
     }
 
-    static setId(currentRow) {
+    static setAttr(currentRow) {
+        $(currentRow).attr("id", Content.item + "_" + Content.fieldId);
+
         $(currentRow)
             .find('[id^="content_"]')
             .attr("id", "content_" + Content.fieldId);
@@ -63,7 +68,29 @@ class Content {
             .find('label[for^="content_"]')
             .attr("for", "content_" + Content.fieldId);
 
-        $(currentRow).attr("id", Content.item + "_" + Content.fieldId);
+        // sub_title_
+        $(currentRow)
+            .find('label[for^="sub_title_"]')
+            .each(function (index, element) {
+                $(element).attr(
+                    "for",
+                    "sub_title_" + $(element).html() + "_" + Content.fieldId
+                );
+            });
+        $(currentRow)
+            .find('[id^="sub_title_"]')
+            .each(function (index, element) {
+                $(element).attr(
+                    "id",
+                    "sub_title_" + $(element).val() + "_" + Content.fieldId
+                );
+            });
+
+        $(currentRow)
+            .find('[name^="sub_title_"]')
+            .each(function (index, element) {
+                $(element).attr("name", "sub_title_" + Content.fieldId);
+            });
 
         Content.fieldId++;
     }
@@ -72,59 +99,75 @@ class Content {
         $(Content.wrapper)
             .find(".form-control")
             .each(function (index, element) {
-                console.log($(element).attr("data-type"));
                 $(element).attr(
                     "name",
                     "content[" +
                         index +
                         "][" +
                         $(element).attr("data-type") +
-                        "][]"
+                        "]" +
+                        $(element).attr("data-subname")
                 );
             });
     }
 
-    static insertContent(input, content) {
-        $(input).children("textarea").html(content);
-        $(input).children('input[type="text"]').val(content);
+    static toggleSubtitle(contentInput, value) {
+        $(contentInput)
+            .find(".form-control")
+            .attr("data-subname", "[" + value + "]");
+        Content.setNames();
+        $(contentInput)
+            .find("[value=" + value + "]")
+            .attr("checked", true);
+    }
+
+    static insertContent(row, content) {
+        if (typeof content === "object") {
+            for (let value in content) {
+                Content.toggleSubtitle(row, value);
+                $(row).children("input.form-control").val(content[value]);
+            }
+        } else {
+            $(row).children("textarea").html(content);
+        }
     }
 }
 
 $(document).ready(function () {
-    $("#enter-data").click(function () {
-        genUrl();
-        $("#H1").val($("#title").val() + " - H1");
-        $("#description").val($("#title").val() + " - description");
-        $("#keywords").val($("#title").val() + " - keywords");
-        $("#preview_text").val($("#title").val() + " - preview_text");
-        $("#preview").val($("#title").val() + " - preview");
-        $("#preview_alt").val($("#title").val() + " - preview_alt");
-        $("#content").val($("#title").val() + " - content");
-    });
-    $("#url").click(function () {
-        if ($("#url").val() == "") {
-            genUrl();
-        }
-    });
-
     Content.getTemplay();
-    Content.getRows(["content-text", "content-img", "content-video"]);
+    Content.getRows(["sub_title", "text", "img", "video", "break"]);
     Content.addRow();
-    Content.addRow("content-text", null, "content text");
-    Content.addRow("content-video", null, "video");
-    Content.addRow("content-img", null, "img");
+    if (typeof contentJson === "string") {
+        contentJson = JSON.parse(contentJson);
+        for (let row in contentJson) {
+            for (let rowType in contentJson[row]) {
+                Content.addRow(rowType, contentJson[row][rowType]);
+            }
+        }
+    }
+
+    Content.addRow("img", "img");
 
     $(Content.wrapper).on("click", ".btn-plus", function () {
         let row = $(this).attr("value");
         let item = $(this).closest("." + Content.item);
 
-        Content.addRow(row, item);
+        Content.addRow(row, null, item);
+    });
+
+    $(Content.wrapper).on("click", ".btn-sub_title", function () {
+        Content.toggleSubtitle(
+            $(this).closest("." + Content.contentInput),
+            $(this).html()
+        );
     });
 
     $(Content.wrapper).on("click", ".btn-del", function () {
         Content.deleteRow($(this));
     });
+});
 
+$(document).ready(function () {
     // bootstrap validation
     (function () {
         "use strict";
@@ -145,6 +188,28 @@ $(document).ready(function () {
             );
         });
     })();
+
+    $("#url").click(function () {
+        if ($("#url").val() == "") {
+            genUrl();
+        }
+    });
+
+    $("textarea").click(function () {
+        auto_grow(this);
+    });
+
+    // Заполнение тестовыми значениями
+    $("#enter-data").click(function () {
+        genUrl();
+        $("#H1").val($("#title").val() + " - H1");
+        $("#description").val($("#title").val() + " - description");
+        $("#keywords").val($("#title").val() + " - keywords");
+        $("#preview_text").val($("#title").val() + " - preview_text");
+        $("#preview").val($("#title").val() + " - preview");
+        $("#preview_alt").val($("#title").val() + " - preview_alt");
+        $("#content").val($("#title").val() + " - content");
+    });
 });
 
 function genUrl() {
@@ -205,4 +270,9 @@ function translitUrl(word) {
     answer = answer.replace(/[-]+/g, "-");
     answer = answer.replace(/^\-|-$/g, "");
     return answer;
+}
+
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = element.scrollHeight + "px";
 }

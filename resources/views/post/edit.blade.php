@@ -1,5 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.app')
+@section('title', $post->title . ' - редактирование')
+@section('description', $post->description)
+@section('keywords', $post->keywords)
+
 @section('content')
+      <form action="{{ route('post.update', $post->url) }}" method="post" id="form" class="g-3 needs-validation" enctype="multipart/form-data" novalidate>
+         @csrf
+         @method('patch')
 <section>
    <div class="text">
       <h1>Редактировать пост</h1>
@@ -13,14 +20,19 @@
             @endforeach
         </ul>
     </div>
+    
 @endif
-      <form action="{{ route('post.update', $post->url) }}" method="post" id="form" class="g-3 needs-validation" enctype="multipart/form-data" novalidate>
-         @csrf
-         @method('patch')
-               <div class="mb-5">
+
+
+               <div class="mb-2">
             <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
             <button type="button" id="enter-data" class="btn btn-secondary btn-lg">Заполнить ТЕСТ</button>
          </div>
+
+
+      </div></section>
+         <section>
+   <div class="text">
          <div class="mb-5">
             <label for="title" class="h2 form-label text-bg-warning p-2 rounded-2">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}" required>
@@ -104,15 +116,19 @@
             <div class="form-text">До стольки то символов</div>
          </div>
 
-
+      </div></section>
+         <section>
+   <div class="text">
 
 <div class="invisible" id="content-templay">
    <div class="mb-5 content-item" id="content-item" style="display:none;">
                <div class="row">
-                  <div class="col">
-                     <button type="button" class="btn btn-dark btn-plus" value="content-text">Текст</button>
-                     <button type="button" class="btn btn-success btn-plus" value="content-img">Img</button>
-                     <button type="button" class="btn btn-warning btn-plus" value="content-video">Video</button>
+                  <div class="col-auto">
+                     <button type="button" class="btn btn-info btn-plus" value="sub_title">H2,H3</button>
+                     <button type="button" class="btn btn-dark btn-plus" value="text">Текст</button>
+                     <button type="button" class="btn btn-success btn-plus" value="img">Img</button>
+                     <button type="button" class="btn btn-warning btn-plus" value="video">Video</button>
+                     <button type="button" class="btn btn-secondary btn-plus" value="break">Разрыв</button>
                   </div>
                   <div class="col d-flex flex-end justify-content-end">
                         <button type="button" class="btn btn-danger btn-del">Удалить</button>
@@ -120,60 +136,69 @@
                </div>
             </div>
 </div>
-<div class="d-none" id="content-text">
-              <div class="mb-3">
+<div class="d-none" id="sub_title">
+<div class="mb-3 content-input">
+<div>                  
+<label for="content_0_sub_title" class="form-label text-bg-info p-1 rounded-2 me-5">Подзаголовок</label><input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_h2_0" autocomplete="off" value="h2">
+<label class="btn btn-outline-info text-uppercase btn-sub_title" for="sub_title_H2_0">h2</label>
+
+<input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_H3_0" autocomplete="off" value="h3">
+<label class="btn btn-outline-info text-uppercase btn-sub_title" for="sub_title_h3_0">h3</label>
+
+<input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_H4_0" autocomplete="off" value="h4">
+<label class="btn btn-outline-info text-uppercase btn-sub_title" for="sub_title_h4_0">h4</label>
+</div>
+<input data-type="sub_title" data-subname="[h2]" type="text" class="form-control h2" id="content_0_sub_title" name="">
+
+                </div>
+</div>
+<div class="d-none" id="text">
+              <div class="mb-3 content-input">
                   <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
-                  <textarea data-type="text" class="form-control" id="content_0_text" name=""></textarea>
+                  <textarea oninput="auto_grow(this)" data-type="text" data-subname="" class="form-control" id="content_0_text" name=""></textarea>
                </div>
 </div>
-<div class="d-none" id="content-img">
- <div class="mb-3">
+<div class="d-none" id="img">
+ <div class="mb-3 content-input">
                    <label for="content_0_img" class="form-label text-bg-success p-1 rounded-2">IMG</label>
-            <input data-type="img" class="form-control" type="file" id="content_0_img" name="" accept="image/jpeg,image/jpg,image/png,image/gif" multiple>
+            <input data-type="img" data-subname="[]" class="form-control" type="file" id="content_0_img" name="" accept="image/jpeg,image/jpg,image/png,image/gif" multiple>
                </div>
 </div>
-<div class="d-none" id="content-video">
- <div class="mb-3">
+<div class="d-none" id="video">
+ <div class="mb-3 content-input">
                    <label for="content_0_video" class="form-label text-bg-warning p-1 rounded-2">Video</label>
-            <input data-type="video" class="form-control" type="text" id="content_0_video" name="">
+                   <textarea data-type="video" data-subname="" class="form-control" id="content_0_video" name=""></textarea>
                </div>
 </div>
 
-
+<div class="d-none" id="break">
+ <div class="mb-3 content-input">
+                   <label for="content_0_video" class="form-label text-bg-secondary p-1 rounded-2 w-100">Новая секция</label>
+   <input data-type="break" data-subname="" type="hidden" class="form-control" id="content_0_break" name="" value="1">
+               </div>
+</div>
+<script>
+    let contentJson = {{ Illuminate\Support\Js::from($post->content) }};
+</script>
          <div class="content-items">
 @error('content.*.*.*')
 <p class="alert alert-danger">{{ $message }}</p>
 @enderror
 
-       
+       {{-- {{$post->content}} --}}
             <div class="h2 text-bg-warning p-2 rounded-2 mb-3">Контент</div>
          </div>
-@php
-   echo "<br><BR><pre>";
 
-
-$arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
-
-print_r($arr);
-echo "<hr>";
-$arr2 = json_encode($arr);
-
-echo $arr2;
-echo "<hr>";
-print_r(json_decode($arr2, true));
-
-
-
-
-echo "<br><BR></pre>";
-@endphp
-
-
-
-
+               </div></section>
+         <section>
+   <div class="text">
          <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
          
-      </form>
+      
+                     </div></section>
+                     </form>
+         <section>
+   <div class="text">
       <div class="d-flex justify-content-end">
             <form action="{{ route('post.delete', $post->url) }}" method="post">
          @csrf

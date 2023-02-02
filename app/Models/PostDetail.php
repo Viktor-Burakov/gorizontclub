@@ -19,5 +19,12 @@ class PostDetail extends Posts
         'keywords' => 'nullable|string',
         'content' => 'nullable|string',
         'gallery' => 'nullable|string',
+        'content' => 'nullable|array',
+        'content.*.sub_title.*' => 'nullable|string',
+        'content.*.text' => 'nullable|string',
+        'content.*.img.*' =>
+        'image|mimes:jpg,png,jpeg,gif|max:10000',
+        'content.*.video' => 'nullable|string',
+        'content.*.break' => 'boolean',
     );
 }
