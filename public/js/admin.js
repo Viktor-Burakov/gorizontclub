@@ -13,8 +13,14 @@ class Content {
 
         if (typeof contentJson === "string") {
             contentJson = JSON.parse(contentJson);
-            contentJson.forEach(function (row) {
-                Content.addRow(row["type"], row["value"], null, row["level"]);
+
+            Object.keys(contentJson).forEach((key) => {
+                Content.addRow(
+                    contentJson[key]["type"],
+                    contentJson[key]["value"],
+                    null,
+                    contentJson[key]["level"]
+                );
             });
         }
     }

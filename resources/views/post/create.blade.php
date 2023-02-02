@@ -86,11 +86,6 @@
             <div class="form-text">До стольки то символов</div>
          </div>
 
-         <div class="mb-5">
-            <label for="content" class="h2 form-label text-bg-warning p-2 rounded-2">Контент</label>
-            <textarea class="form-control" id="content" name="content">{{old('content')}}</textarea>
-            <div class="form-text">До стольки то символов</div>
-         </div>
          <button type="submit" class="btn btn-primary">Сохранить</button>
       </form>
    </div>

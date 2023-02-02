@@ -123,11 +123,11 @@
    <div class="mb-5 content-item" id="content-item" style="display:none;">
                <div class="row">
                   <div class="col-auto">
-                     <button type="button" class="btn btn-info btn-plus" value="sub_title">H2,H3</button>
-                     <button type="button" class="btn btn-dark btn-plus" value="text">Текст</button>
-                     <button type="button" class="btn btn-success btn-plus" value="img">Img</button>
-                     <button type="button" class="btn btn-warning btn-plus" value="video">Video</button>
-                     <button type="button" class="btn btn-secondary btn-plus" value="break">Разрыв</button>
+                     <button type="button" class="btn btn-outline-info btn-plus" value="sub_title">H2,H3</button>
+                     <button type="button" class="btn btn-outline-dark btn-plus" value="text">Текст</button>
+                     <button type="button" class="btn btn-outline-success btn-plus" value="img">Img</button>
+                     <button type="button" class="btn btn-outline-warning btn-plus" value="video">Video</button>
+                     <button type="button" class="btn btn-outline-secondary btn-plus" value="break">Разрыв</button>
                   </div>
                   <div class="col d-flex flex-end justify-content-end">
                         <button type="button" class="btn btn-danger btn-del">Удалить</button>
