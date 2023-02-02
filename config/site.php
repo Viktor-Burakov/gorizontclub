@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-    'title' => 'TITLE',
     'description' => 'DESCRIPTION',
     'keywords' => 'KEYWORDS',
     'siteName' => 'SITE_NAME',

@@ -1,5 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
+@section('title', 'Создать пост')
+@section('description', '$post->description')
+@section('keywords', '$post->keywords')
 <section>
    <div class="text">
       <h1>Создать пост</h1>

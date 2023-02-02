@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 <div>main page</div>
 @endsection
 
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 <section>
    <div class="text">

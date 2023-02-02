@@ -1,4 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.app')
+@section('title', 'Сплавы на байдарках, походы - Тюменский клуб туристов "Горизонт')
+@section('description', '$post->description')
+@section('keywords', '$post->keywords')
+
 @section('content')
 <section>
    <div class="text">

@@ -5,15 +5,15 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-   <title>{{$setting['title']}}</title>
-   <meta name="description" content="{{$setting['description']}}">
-   <meta name="keywords" content="{{$setting['keywords']}}">
+   <title>@yield('title')</title>
+   <meta name="description" content="@yield('description')">
+   <meta name="keywords" content="@yield('keywords')">
    <link rel="canonical" href="{{$setting['url']}}">
 
    <meta property="og:locale" content="ru_RU">
    <meta property="og:type" content="article">
-   <meta property="og:title" content="{{$setting['title']}}">
-   <meta property="og:description" content="{{$setting['description']}}">
+   <meta property="og:title" content="@yield('title')">
+   <meta property="og:description" content="@yield('description')">
    <meta property="og:url" content="{{$setting['url']}}">
    <meta property="og:site_name" content="{{$setting['siteName']}}">
    <meta property="og:updated_time" content="{{$setting['updateTime']}}">
@@ -21,13 +21,13 @@
    <meta property="og:image:secure_url" content="{{$setting['metaImage']}}">
    <meta property="og:image:width" content="{{$setting['metaImageWidth']}}">
    <meta property="og:image:height" content="{{$setting['metaImageHeight']}}">
-   <meta property="og:image:alt" content="{{$setting['description']}}">
+   <meta property="og:image:alt" content="@yield('description')">
    <meta property="og:image:type" content="{{$setting['imageType']}}">
    <meta property="article:published_time" content="{{$setting['publishedTime']}}">
    <meta property="article:modified_time" content="{{$setting['updateTime']}}">
    <meta name="twitter:card" content="summary_large_image">
-   <meta name="twitter:title" content="{{$setting['title']}}">
-   <meta name="twitter:description" content="{{$setting['description']}}">
+   <meta name="twitter:title" content="@yield('title')">
+   <meta name="twitter:description" content="@yield('description')">
    <meta name="twitter:image" content="{{$setting['metaImage']}}">
    <meta name="twitter:label1" content="Автор">
    <meta name="twitter:data1" content="{{$setting['author']}}">
