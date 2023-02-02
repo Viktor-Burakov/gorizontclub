@@ -11,9 +11,14 @@
       <h1>{{$post->H1}}</h1>
 
 
-      <div>{!!$post->content!!}</div>
-       <div>{{$post->content}}</div>
+{{-- {{dd($post->content1)}} --}}
+            @foreach ($post->content1 as $item)
+   @include("partials.posts." . $item->type, ["content" => $item])
 
+
+
+
+            @endforeach
    </div>
 </section>
 @endsection
