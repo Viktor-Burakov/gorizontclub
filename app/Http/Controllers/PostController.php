@@ -52,7 +52,7 @@ class PostController extends Controller
             ->where('url', $uri)->first();
         if (!isset($post)) dd('404');
         $post->content1 = json_decode($post->content);
-
+       // dd($post->content1);
         return view('post.show', compact('post'));
     }
 
@@ -91,9 +91,12 @@ class PostController extends Controller
 
         $dataPostDetail = request()->validate(PostDetail::$validData);
 
+     
         if (isset($dataPostDetail['content'])) {
             ksort($dataPostDetail['content']);
             $dataPostDetail['content'] = json_encode($dataPostDetail['content'], JSON_UNESCAPED_UNICODE);
+            
+
         }
 
   

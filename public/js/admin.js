@@ -6,6 +6,19 @@ class Content {
     static templay;
     static rows = [];
 
+    static init(contentJson) {
+        Content.getTemplay();
+        Content.getRows(["sub_title", "text", "img", "video", "break"]);
+        Content.addRow();
+
+        if (typeof contentJson === "string") {
+            contentJson = JSON.parse(contentJson);
+            contentJson.forEach(function (row) {
+                Content.addRow(row["type"], row["value"], null, row["level"]);
+            });
+        }
+    }
+
     static getTemplay() {
         Content.templay = $("#content-templay")
             .children(".content-item")
@@ -22,17 +35,16 @@ class Content {
         });
     }
 
-    static addRow(rowName = null, content = null, currentRow = null) {
+    static addRow(rowName = null, content = null, currentRow = null, level) {
         let temp = $(Content.templay).clone(true, true);
         if (rowName) {
             let row = $(Content.rows[rowName]).clone(true, true);
             if (content) {
                 Content.insertContent(row, content);
-            } else if (rowName == "sub_title") {
-                console.log(rowName);
-                Content.toggleSubtitle(row, "h2");
             }
-
+            if (level) {
+                Content.toggleSubtitle(row, level);
+            }
             $(temp).prepend(row);
         } else {
             $(temp).find(".btn-del").remove();
@@ -96,63 +108,49 @@ class Content {
     }
 
     static setNames() {
+        let input = "";
         $(Content.wrapper)
-            .find(".form-control")
+            .find("." + Content.contentInput)
             .each(function (index, element) {
-                $(element).attr(
-                    "name",
-                    "content[" +
-                        index +
-                        "][" +
-                        $(element).attr("data-type") +
-                        "]" +
-                        $(element).attr("data-subname")
-                );
+                if ($(element).find(".form-type").val() == "img") {
+                    input = "[img]";
+                } else {
+                    input = "[value]";
+                }
+                $(element)
+                    .find(".form-control")
+                    .attr("name", "content[" + index + "]" + input);
+                $(element)
+                    .find(".form-type")
+                    .attr("name", "content[" + index + "][type]");
+                $(element)
+                    .find(".form-level")
+                    .attr("name", "content[" + index + "][level]");
             });
     }
 
     static toggleSubtitle(contentInput, value) {
-        $(contentInput)
-            .find(".form-control")
-            .attr("data-subname", "[" + value + "]");
-        Content.setNames();
+        $(contentInput).find(".form-level").val(value);
         $(contentInput)
             .find("[value=" + value + "]")
             .attr("checked", true);
     }
 
     static insertContent(row, content) {
-        if (typeof content === "object") {
-            for (let value in content) {
-                Content.toggleSubtitle(row, value);
-                $(row).children("input.form-control").val(content[value]);
-            }
-        } else {
-            $(row).children("textarea").html(content);
-        }
+        $(row).children("input.form-control[type=text]").val(content);
+        $(row).children("textarea").html(content);
     }
 }
 
 $(document).ready(function () {
-    Content.getTemplay();
-    Content.getRows(["sub_title", "text", "img", "video", "break"]);
-    Content.addRow();
-    if (typeof contentJson === "string") {
-        contentJson = JSON.parse(contentJson);
-        for (let row in contentJson) {
-            for (let rowType in contentJson[row]) {
-                Content.addRow(rowType, contentJson[row][rowType]);
-            }
-        }
-    }
-
-    Content.addRow("img", "img");
+    Content.init(contentJson);
 
     $(Content.wrapper).on("click", ".btn-plus", function () {
-        let row = $(this).attr("value");
-        let item = $(this).closest("." + Content.item);
-
-        Content.addRow(row, null, item);
+        Content.addRow(
+            $(this).attr("value"),
+            null,
+            $(this).closest("." + Content.item)
+        );
     });
 
     $(Content.wrapper).on("click", ".btn-sub_title", function () {

@@ -22,11 +22,10 @@
     </div>
     
 @endif
-
-
                <div class="mb-2">
             <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
             <button type="button" id="enter-data" class="btn btn-secondary btn-lg">Заполнить ТЕСТ</button>
+            <a href="{{route('post.show', $post->url) }}" class="btn btn-info btn-lg" target="_blank">Просмотр</a>
          </div>
 
 
@@ -139,7 +138,7 @@
 <div class="d-none" id="sub_title">
 <div class="mb-3 content-input">
 <div>                  
-<label for="content_0_sub_title" class="form-label text-bg-info p-1 rounded-2 me-5">Подзаголовок</label><input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_h2_0" autocomplete="off" value="h2">
+<label for="content_0_sub_title" class="form-label text-bg-info p-1 rounded-2 me-5">Подзаголовок</label><input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_h2_0" autocomplete="off" value="h2" checked>
 <label class="btn btn-outline-info text-uppercase btn-sub_title" for="sub_title_H2_0">h2</label>
 
 <input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_H3_0" autocomplete="off" value="h3">
@@ -148,35 +147,48 @@
 <input type="radio" class="btn-check m-1" name="sub_title_0" id="sub_title_H4_0" autocomplete="off" value="h4">
 <label class="btn btn-outline-info text-uppercase btn-sub_title" for="sub_title_h4_0">h4</label>
 </div>
-<input data-type="sub_title" data-subname="[h2]" type="text" class="form-control h2" id="content_0_sub_title" name="">
+<input type="text" class="form-control h2" id="content_0_sub_title" name="">
+<input type="hidden" class="form-type" name="" value="sub_title">
+<input type="hidden" class="form-level" name="" value="h2">
 
                 </div>
 </div>
 <div class="d-none" id="text">
               <div class="mb-3 content-input">
                   <label for="content_0" class="form-label text-bg-dark p-1 rounded-2">Текст</label>
-                  <textarea oninput="auto_grow(this)" data-type="text" data-subname="" class="form-control" id="content_0_text" name=""></textarea>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="content_0_text" name=""></textarea>
+               <input type="hidden" class="form-type" name="" value="text">
                </div>
 </div>
 <div class="d-none" id="img">
  <div class="mb-3 content-input">
                    <label for="content_0_img" class="form-label text-bg-success p-1 rounded-2">IMG</label>
-            <input data-type="img" data-subname="[]" class="form-control" type="file" id="content_0_img" name="" accept="image/jpeg,image/jpg,image/png,image/gif" multiple>
-               </div>
+            <input class="form-control" type="file" id="content_0_img" name="" accept="image/jpeg,image/jpg,image/png,image/gif" multiple>
+               <input type="hidden" class="form-type" name="" value="img">
+         </div>
 </div>
 <div class="d-none" id="video">
  <div class="mb-3 content-input">
                    <label for="content_0_video" class="form-label text-bg-warning p-1 rounded-2">Video</label>
-                   <textarea data-type="video" data-subname="" class="form-control" id="content_0_video" name=""></textarea>
-               </div>
+                   <textarea class="form-control form-value" id="content_0_video" name=""></textarea>
+               <input type="hidden" class="form-type" name="" value="video">
+                  </div>
 </div>
 
 <div class="d-none" id="break">
  <div class="mb-3 content-input">
                    <label for="content_0_video" class="form-label text-bg-secondary p-1 rounded-2 w-100">Новая секция</label>
-   <input data-type="break" data-subname="" type="hidden" class="form-control" id="content_0_break" name="" value="1">
-               </div>
+   <input type="hidden" class="form-control" id="content_0_break" name="" value="">
+            <input type="hidden" class="form-type" name="" value="break">   
 </div>
+</div>
+
+
+
+
+
+
+
 <script>
     let contentJson = {{ Illuminate\Support\Js::from($post->content) }};
 </script>

@@ -20,11 +20,10 @@ class PostDetail extends Posts
         'content' => 'nullable|string',
         'gallery' => 'nullable|string',
         'content' => 'nullable|array',
-        'content.*.sub_title.*' => 'nullable|string',
-        'content.*.text' => 'nullable|string',
+        'content.*.type' => 'string',
+        'content.*.value' => 'nullable|string',
+        'content.*.level' => 'nullable|string',
         'content.*.img.*' =>
         'image|mimes:jpg,png,jpeg,gif|max:10000',
-        'content.*.video' => 'nullable|string',
-        'content.*.break' => 'boolean',
     );
 }
