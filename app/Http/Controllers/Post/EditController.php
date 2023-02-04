@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Post;
 
 use App\Models\Posts;
 use App\Models\Categories;
-use App\Http\Controllers\Controller;
 
 
-class EditController extends Controller
+class EditController extends BaseController
 {
    public function __invoke($uri)
    {

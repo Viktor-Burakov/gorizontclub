@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Post;
 
 use App\Models\Posts;
-use App\Http\Controllers\Controller;
 
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
    public function __invoke($uri)
    {

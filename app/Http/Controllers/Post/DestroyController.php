@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Post;
 
 use App\Models\Posts;
 use App\Models\PostDetail;
-use App\Http\Controllers\Controller;
 
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
    public function __invoke($uri)
    {
