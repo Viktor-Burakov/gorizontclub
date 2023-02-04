@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Post;
 
+<<<<<<< HEAD
+=======
+use App\Models\Posts;
+>>>>>>> aad975b85fbfa9bffa1156b242975552069842d4
 
 
 class IndexController extends BaseController
