@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Post;
 use App\Models\Posts;
 use App\Models\PostDetail;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\StoreDetailRequest;
 
 class StoreController extends Controller
 {
-   public function __invoke()
+   public function __invoke(StoreRequest $request, StoreDetailRequest $requestDetail)
    {
-      $data = request()->validate(Posts::$validData);
+      $data = $request->validated();
       $categories = array();
       if (isset($data['category'])) {
          foreach ($data['category'] as $key => $value) {
@@ -21,7 +22,7 @@ class StoreController extends Controller
       }
       $post = Posts::create($data);
 
-      $dataPostDetail = request()->validate(PostDetail::$validData);
+      $dataPostDetail = $requestDetail->validated();
 
       $dataPostDetail['post_id'] = $post->id;
 

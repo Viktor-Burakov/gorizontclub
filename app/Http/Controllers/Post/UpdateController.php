@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Post;
 
+
 use App\Models\Posts;
 use App\Models\PostDetail;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\UpdateRequest;
+use App\Http\Requests\Post\UpdateDetailRequest;
 
 class UpdateController extends Controller
 {
-   public function __invoke($uri)
+   public function __invoke($uri, UpdateRequest $request, UpdateDetailRequest $requestDetail)
    {
-      $data = request()->validate(Posts::$validData);
+      $data = $request->validated();
       $categories = array();
       if (isset($data['category'])) {
          foreach ($data['category'] as $key => $value) {
@@ -23,7 +26,7 @@ class UpdateController extends Controller
       $post = Posts::where('url', $uri)->first();
       $post->update($data);
 
-      $dataPostDetail = request()->validate(PostDetail::$validData);
+      $dataPostDetail = $requestDetail->validated();
 
 
       if (isset($dataPostDetail['content'])) {
