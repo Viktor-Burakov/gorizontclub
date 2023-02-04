@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Post;
 
 use App\Models\Categories;
-use App\Http\Controllers\Controller;
 
 
-class CreateController extends Controller
+class CreateController extends BaseController
 {
    public function __invoke()
    {

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Post\BaseController;
 
-class CategoryController extends Controller
+
+class CategoryController extends BaseController
 {
     public function index()
     {

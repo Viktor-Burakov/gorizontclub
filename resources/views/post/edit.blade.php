@@ -69,7 +69,7 @@
          
          <div class="mb-5">
             <div><label for="category" class="h2 form-label text-bg-warning p-2 rounded-2">Рубрика</label></div>
-            @foreach ($categories as $category)
+            @foreach ($post->categories as $category)
             <input type="checkbox" class="btn-check" id="category[{{ $category->id }}]" name="category[{{ $category->id }}]" autocomplete="off"{{ $category->checked }}>
             <label class="btn btn-outline-success m-1" for="category[{{ $category->id }}]">{{ $category->id }} - {{ $category->title }}</label>
             @endforeach
