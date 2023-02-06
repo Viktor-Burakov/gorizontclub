@@ -71,20 +71,23 @@
 </head>
 
 <body>
-@include("partials.header")
-   <main>
-      <div class="conteiner">
-         <section>
-            <div class="text">
-               <h3><a href="{{ route('main.index') }}">Главная</a> <a href="{{ route('post.create') }}">Создать пост</a></h3>
-            </div>
-         </section>
-         @yield('content')
 
-       
-      </div>
-   </main>
-   @include("partials.footer")
+
+   @include("partials.header")
+
+      <main>
+         <div class="conteiner">
+            <section>
+               <div class="text">
+                  <h3><a href="{{ route('main.index') }}">Главная</a> <a href="{{ route('post.create') }}">Создать пост</a></h3>
+               </div>
+            </section>
+            @yield('content')
+
+         </div>
+      </main>
+       @include("partials.footer")
+
    
 </body>
 </html>
