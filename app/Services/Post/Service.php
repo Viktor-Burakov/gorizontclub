@@ -5,6 +5,7 @@ namespace App\Services\Post;
 use App\Models\Posts;
 use App\Models\Categories;
 use App\Models\PostDetail;
+use Illuminate\Support\Facades\Storage;
 
 class Service
 {
@@ -41,14 +42,29 @@ class Service
       $post = Posts::where('url', $uri)->first();
       $post->update($data);
 
+   
       if (isset($dataDetail['content'])) {
          ksort($dataDetail['content']);
+
+         foreach ($dataDetail['content'] as $index => $item) {
+            if ($item['type'] == 'img') {
+               foreach ($item['img'] as $key => $image) {
+                  $name = $index . '-' . $image->getClientOriginalName();
+                  dump($name);
+                  Storage::disk('public')->putFileAs('/images', $image, $name);
+               }
+            }
+         }
+
+         dd($dataDetail['content']);
          $dataDetail['content'] = json_encode($dataDetail['content'], JSON_UNESCAPED_UNICODE);
       }
 
       PostDetail::where('post_id', $post->id)->update($dataDetail);
 
       $post->categories()->sync($categories);
+
+
    }
 
    public function index()
