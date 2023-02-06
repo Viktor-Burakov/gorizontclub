@@ -119,7 +119,7 @@ class Content {
             .find("." + Content.contentInput)
             .each(function (index, element) {
                 if ($(element).find(".form-type").val() == "img") {
-                    input = "[img]";
+                    input = "[img][]";
                 } else {
                     input = "[value]";
                 }
@@ -149,7 +149,9 @@ class Content {
 }
 
 $(document).ready(function () {
-    Content.init(contentJson);
+    if (typeof contentJson != "undefined" && contentJson !== null) {
+        Content.init(contentJson);
+    }
 
     $(Content.wrapper).on("click", ".btn-plus", function () {
         Content.addRow(
