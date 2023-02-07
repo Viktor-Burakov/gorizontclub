@@ -4,6 +4,7 @@ namespace App\Services\Post;
 
 use App\Models\Posts;
 use App\Models\Categories;
+use App\Models\Image;
 use App\Models\PostDetail;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,13 +46,25 @@ class Service
    
       if (isset($dataDetail['content'])) {
          ksort($dataDetail['content']);
-
+         
          foreach ($dataDetail['content'] as $index => $item) {
             if ($item['type'] == 'img') {
+               if (empty($imagelastId)) {
+                  $imagelastId = Image::latest('id')->first()->id;
+               }
+               
                foreach ($item['img'] as $key => $image) {
-                  $name = $index . '-' . $image->getClientOriginalName();
-                  dump($name);
-                  Storage::disk('public')->putFileAs('/images', $image, $name);
+                  dump($imagelastId);
+                  $name = $uri . '_' .
+                     $imagelastId . '.' .
+                     $image->getClientOriginalExtension();
+
+                  $imagePath = Storage::disk('public')->putFileAs('/images', $image, $name);
+                  dump([$name, $imagePath, url('storage/' . $imagePath)]);
+                  $imagelast = Image::create([
+                     'name' => $name,
+                  ]);
+                  $imagelastId = $imagelast->id;
                }
             }
          }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
             $table->boolean('preview')->default(0);
