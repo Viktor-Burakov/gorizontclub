@@ -46,30 +46,35 @@ class Service
    
       if (isset($dataDetail['content'])) {
          ksort($dataDetail['content']);
-         
+         dump($dataDetail['content']);
          foreach ($dataDetail['content'] as $index => $item) {
             if ($item['type'] == 'img') {
-               if (empty($imagelastId)) {
-                  $imagelastId = Image::latest('id')->first()->id;
-               }
-               
-               foreach ($item['img'] as $key => $image) {
-                  dump($imagelastId);
+               if (!empty($item['img'])) {
+                  if (empty($imagelastId)) {
+                     $imagelastId = Image::latest('id')->first()->id;
+                  }
+                  dump($index);
+                  foreach ($item['img'] as $key => $image) {
                   $name = $uri . '_' .
                      $imagelastId . '.' .
-                     $image->getClientOriginalExtension();
-
+                        $image->getClientOriginalExtension();
                   $imagePath = Storage::disk('public')->putFileAs('/images', $image, $name);
                   dump([$name, $imagePath, url('storage/' . $imagePath)]);
                   $imagelast = Image::create([
                      'name' => $name,
                   ]);
                   $imagelastId = $imagelast->id;
+
+                     $dataDetail['content'][$index]['value'][$key] = $name;
+                  }
+                  unset($dataDetail['content'][$index]['img']);
+               } else {
+                  unset($dataDetail['content'][$index]);
                }
             }
          }
-
-         dd($dataDetail['content']);
+         $dataDetail['content'] = array_values($dataDetail['content']);
+         dump($dataDetail['content']);
          $dataDetail['content'] = json_encode($dataDetail['content'], JSON_UNESCAPED_UNICODE);
       }
 

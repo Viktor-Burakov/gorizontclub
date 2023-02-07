@@ -1,4 +1,27 @@
 <div class="img">
-   <h1>IMG</h1>
-<img src="{{ asset('img/header_bg.jpg') }}">
+
+
+@foreach ($content->value as $image)
+   @if ($loop->count == 1)
+   <img src="{{ asset('/storage/images/' . $image) }}">
+   @else
+   
+      
+   
+
+
+   @if ($loop->first)
+      <div class="row">
+   @endif
+<div class="col"><img src="{{ asset('/storage/images/' . $image) }}"></div>
+   @if ($loop->last)
+      </div>
+   @endif
+
+
+   @endif
+      
+
+
+@endforeach
 </div>

@@ -11,7 +11,7 @@
       <h1>{{$post->H1}}</h1>
 </div>
 
-{{-- {{dd($post->content1)}} --}}
+{{-- {{dd($post->content)}} --}}
 
 @isset($post->content)
 @foreach ($post->content as $item)
